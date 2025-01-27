@@ -1,3 +1,4 @@
+
 name: Build and Deploy
 
 on:
@@ -41,21 +42,14 @@ jobs:
         run: |
           docker container rm -f web_app_container || true
 
-      - name: Create SSH key file
-        run: |
-          echo "$ANSIBLE_PRIVATE_KEY" > .ansible_key
-          chmod 600 .ansible_key
-
       # 7. Выполнение Ansible playbook для деплоя
       - name: Deploy with Ansible
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: deploy_docker_app.yml
+          inventory: inventory.txt
           directory: deployment/
-          key: ${{ secrets.SSH_PRIVATE_KEY }}  
-          inventory: |
-            [aws]
-            ${{ secrets.REMOTE_HOST }} ansible_ssh_user=${{ secrets.ANSIBLE_SSH_USER }}  
+          key: ${{ secrets.SSH_PRIVATE_KEY }}    
           options: |
             --verbose  
 
