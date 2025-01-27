@@ -45,10 +45,11 @@ jobs:
       - name: Deploy with Ansible
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: deployment/deploy_docker_app.yml
+          playbook: deploy_docker_app.yml
+          directory: deployment/
           key: ${{ secrets.SSH_PRIVATE_KEY }}  
           inventory: |
-            [ec2_hosts]
+            [aws]
             ${{ secrets.REMOTE_HOST }} ansible_ssh_user=${{ secrets.ANSIBLE_SSH_USER }}  
           options: |
             --verbose  # Для подробного вывода процесса деплоя
