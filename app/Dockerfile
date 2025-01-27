@@ -5,10 +5,12 @@ FROM python:3.12.5-slim
 WORKDIR /app
 
 # добавление всех файлов с текущей директории в папку app на контейнере
-ADD . /app
+COPY requirements.txt requirements.txt
 
 # Устанавливаем зависимости
 RUN pip install -r requirements.txt
+
+COPY . .
 
 # Порт который приложение будет использовать
 EXPOSE 5000
