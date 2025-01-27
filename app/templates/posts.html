@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Все записи
+{% endblock %}
+
+
+{% block content %}
+<h1>Все записи</h1>
+<div class="row">
+    {% for post in posts %}
+    <div class="card border-primary mb-3 item" style="max-width: 18rem; margin: 10px;">
+        <div class="card-header">{{ post.title }}</div>
+        <div class="card-body text-primary">
+            <p class="card-text">{{ post.text }}</p>
+            <a href="#" >Читать далее
+                <i class="fa fa-long-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+#  Мои образ был протестирован на двух операционных системах (Ubuntu и AWS Linux)
+# , поэтому плейбук предназначен для обеих ОС.
+- name: Install Docker and deploy container from Docker Hub
+  hosts: all
+  become: true  # for sudo
+  tasks:
+    # 1. Устанавливаем зависимости 
+    - name: Install Docker dependencies 
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    # 1. Убедитесь, что файл GPG существует
+    - name: Ensure GPG key file is present
+      copy:
+        src: /tmp/ansible/key.gpg
+        dest: /home/ubuntu/key.gpg
+
+#    - name: Add Docker GPG key
+    # 2. Импортируйте ключ в формате .gpg# apt_key:
+    - name: Import Docker GPG key 
+      command: sudo gpg --dearmor --yes -o /usr/share/keyrings/docker-archive-keyring.gpg /home/ubuntu/key.gpg 
+      become: true
+
+    - name: Add Docker repository 
+      apt_repository:
+        repo: "deb https://download.docker.com/linux/ubuntu lunar  stable"
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+      when: ansible_os_family == "Debian"
+
+    # 5. Устанавливаем Docker (для CentOS/RHEL)
+    - name: Install Docker (CentOS)
+      yum:
+        name: docker
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    # 6. Убедимся, что Docker запущен
+    - name: Ensure Docker is running and enabled
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Login to Docker Hub
+      docker_login:
+         username: "gmunira"
+         password: "gulovam71@"
+
+
+    - name: Pull Docker image from Docker Hub
+      docker_image:
+        name: "gmunira/web_app_image:latest"
+        source: pull
+      become: true
+
+    - name: Run Docker container from pulled image
+      docker_container:
+        name: my_application_container
+        image: gmunira/web_app_image:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "5000:5000"  # Пример переноса портов, если нужно
+

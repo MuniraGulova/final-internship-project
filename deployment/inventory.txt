@@ -1,0 +1,8 @@
+[aws]
+ubuntu ansible_host=43.200.171.169  ansible_user=ubuntu 
+
+
+[aws:vars]
+ansible_ssh_private_key_file=/tmp/ansible/cometa1_key.pem
+
+
