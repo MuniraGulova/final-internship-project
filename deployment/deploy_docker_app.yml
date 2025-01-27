@@ -16,14 +16,12 @@
         update_cache: yes
       when: ansible_os_family == "Debian"
 
-    # 1. Убедитесь, что файл GPG существует
     - name: Ensure GPG key file is present
       copy:
         src: /tmp/ansible/key.gpg
         dest: /home/ubuntu/key.gpg
 
-#    - name: Add Docker GPG key
-    # 2. Импортируйте ключ в формате .gpg# apt_key:
+    # 2. Импортируйте ключ в формате .gpg
     - name: Import Docker GPG key 
       command: sudo gpg --dearmor --yes -o /usr/share/keyrings/docker-archive-keyring.gpg /home/ubuntu/key.gpg 
       become: true
@@ -53,12 +51,6 @@
         name: docker
         state: started
         enabled: yes
-
-    - name: Login to Docker Hub
-      docker_login:
-         username: "gmunira"
-         password: "gulovam71@"
-
 
     - name: Pull Docker image from Docker Hub
       docker_image:
