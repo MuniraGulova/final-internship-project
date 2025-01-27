@@ -52,6 +52,6 @@ jobs:
             [aws]
             ${{ secrets.REMOTE_HOST }} ansible_ssh_user=${{ secrets.ANSIBLE_SSH_USER }}  
           options: |
-            --verbose  # Для подробного вывода процесса деплоя
+            --verbose  
 
 
