@@ -28,7 +28,7 @@ jobs:
       # 4. Сборка Docker-образа
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/web_app_image:latest -f Dockerfile .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/web_app_image:latest -f app/Dockerfile .
 
       # 5. Загрузка Docker-образа в Docker Hub
       - name: Push Docker image to Docker Hub
