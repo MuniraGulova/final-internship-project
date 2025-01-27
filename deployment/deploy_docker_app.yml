@@ -1,4 +1,4 @@
-#  Мои образ был протестирован на двух операционных системах (Ubuntu и AWS Linux)
+#  Мой образ был протестирован на двух операционных системах (Ubuntu и AWS Linux)
 # , поэтому плейбук предназначен для обеих ОС.
 - name: Install Docker and deploy container from Docker Hub
   hosts: all
@@ -67,4 +67,15 @@
         restart_policy: always
         ports:
           - "5000:5000"  # Пример переноса портов, если нужно
+      register: container_status
+      ignore_errors: yes
 
+    - name: Create container if doesn't exist
+      docker_container:
+        name: my_application_container
+        image: gmunira/web_app_image:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "5000:5000"
+      when: container_status.failed
