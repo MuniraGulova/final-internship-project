@@ -16,15 +16,16 @@
         update_cache: yes
       when: ansible_os_family == "Debian"
 
-    - name: Ensure GPG key file is present
-      copy:
-        src: /tmp/ansible/key.gpg
-        dest: /home/ubuntu/key.gpg
+    - name: Add Docker GPG apt Key 
+      apt_key:
+        url: "https://download.docker.com/linux/ubuntu/gpg"
+        state: present
 
-    # 2. Импортируйте ключ в формате .gpg
-    - name: Import Docker GPG key 
-      command: sudo gpg --dearmor --yes -o /usr/share/keyrings/docker-archive-keyring.gpg /home/ubuntu/key.gpg 
-      become: true
+    - name: Add Docker Repository 
+      apt_repository:
+        repo: "deb https://download.docker.com/linux/ubuntu  lunar stable"
+        state: present
+
 
     - name: Add Docker repository 
       apt_repository:
