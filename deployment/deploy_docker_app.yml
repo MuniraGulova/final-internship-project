@@ -1,11 +1,11 @@
-#  Мой образ был протестирован на двух операционных системах (Ubuntu и AWS Linux)
+#  Мои образ был протестирован на двух операционных системах (Ubuntu и AWS Linux)
 # , поэтому плейбук предназначен для обеих ОС.
 - name: Install Docker and deploy container from Docker Hub
   hosts: all
   become: true  # for sudo
   tasks:
-    # 1. Устанавливаем зависимости 
-    - name: Install Docker dependencies 
+    # 1. Устанавливаем зависимости
+    - name: Install Docker dependencies
       apt:
         name:
           - apt-transport-https
@@ -16,18 +16,12 @@
         update_cache: yes
       when: ansible_os_family == "Debian"
 
-    - name: Add Docker GPG apt Key 
-      apt_key:
-        url: "https://download.docker.com/linux/ubuntu/gpg"
-        state: present
+     # 2. Импортируйте ключ в формате .gpg
+    - name: Import Docker GPG key
+      command: sudo gpg --dearmor --yes -o /usr/share/keyrings/docker-archive-keyring.gpg /home/ubuntu/key.gpg
+      become: true
 
-    - name: Add Docker Repository 
-      apt_repository:
-        repo: "deb https://download.docker.com/linux/ubuntu  lunar stable"
-        state: present
-
-
-    - name: Add Docker repository 
+    - name: Add Docker repository
       apt_repository:
         repo: "deb https://download.docker.com/linux/ubuntu lunar  stable"
         state: present
@@ -67,15 +61,3 @@
         restart_policy: always
         ports:
           - "5000:5000"  # Пример переноса портов, если нужно
-      register: container_status
-      ignore_errors: yes
-
-    - name: Create container if doesn't exist
-      docker_container:
-        name: my_application_container
-        image: gmunira/web_app_image:latest
-        state: started
-        restart_policy: always
-        ports:
-          - "5000:5000"
-      when: container_status.failed
