@@ -42,14 +42,9 @@ jobs:
         run: |
           docker container rm -f web_app_container || true
 
-      # 7. Выполнение Ansible playbook для деплоя
-      - name: Deploy with Ansible
-        uses: dawidd6/action-ansible-playbook@v2
-        with:
-          playbook: deploy_docker_app.yml
-          directory: deployment/
-          key: ${{ secrets.SSH_PRIVATE_KEY }}    
-          options: |
-            --verbose  
-            --inventory-file deployment/inventory.txt
-
+      # 7. Deploy with Ansible using sudo
+      - name: Deploy with Ansible (using sudo)
+        run: |
+          sudo ansible-playbook -i deployment/inventory.txt deployment/deploy_docker_app.yml
+        env:
+          ANSIBLE_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
