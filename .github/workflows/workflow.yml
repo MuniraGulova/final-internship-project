@@ -30,12 +30,12 @@ jobs:
       - name: Build Docker image
         run: |
           cd app
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/web_app_image:latest -f Dockerfile .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/new_web_app_image:latest -f Dockerfile .
 
       # 5. Загрузка Docker-образа в Docker Hub
       - name: Push Docker image to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/web_app_image:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/new_web_app_image:latest
 
       # 6. Удаление существующего контейнера 
       - name: Remove existing Docker container
