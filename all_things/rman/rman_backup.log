@@ -1,0 +1,61 @@
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Tue Jan 28 08:44:16 2025
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: TESTDB (DBID=2974669564)
+
+RMAN> 2> 3> 4> 5> 6> 7> 8> 
+using target database control file instead of recovery catalog
+allocated channel: ch1
+channel ch1: SID=390 device type=DISK
+
+
+Starting backup at 28-JAN-25
+current log archived
+channel ch1: starting archived log backup set
+channel ch1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=7 RECID=1 STAMP=1191573859
+channel ch1: starting piece 1 at 28-JAN-25
+channel ch1: finished piece 1 at 28-JAN-25
+piece handle=/home/oracle/rman_backup/TESTDB_1_013gbub3_1_1.bkp tag=TAG20250128T084419 comment=NONE
+channel ch1: backup set complete, elapsed time: 00:00:01
+Finished backup at 28-JAN-25
+
+Starting backup at 28-JAN-25
+channel ch1: starting full datafile backup set
+channel ch1: specifying datafile(s) in backup set
+input datafile file number=00001 name=/u01/app/oracle/oradata/TESTDB/system01.dbf
+input datafile file number=00003 name=/u01/app/oracle/oradata/TESTDB/sysaux01.dbf
+input datafile file number=00004 name=/u01/app/oracle/oradata/TESTDB/undotbs01.dbf
+input datafile file number=00002 name=/u01/app/oracle/product/19.0.0/dbhome_1/dbs/user_tblspace.dbf
+input datafile file number=00005 name=/u01/app/oracle/product/19.0.0/dbhome_1/dbs/admin_tblspace.dbf
+input datafile file number=00008 name=/u01/app/oracle/product/19.0.0/dbhome_1/dbs/reader_tblspace
+input datafile file number=00007 name=/u01/app/oracle/oradata/TESTDB/users01.dbf
+channel ch1: starting piece 1 at 28-JAN-25
+channel ch1: finished piece 1 at 28-JAN-25
+piece handle=/u01/app/oracle/product/19.0.0/dbhome_1/dbs/023gbub4_1_1 tag=TAG20250128T084420 comment=NONE
+channel ch1: backup set complete, elapsed time: 00:00:07
+Finished backup at 28-JAN-25
+
+Starting backup at 28-JAN-25
+current log archived
+channel ch1: starting archived log backup set
+channel ch1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=8 RECID=2 STAMP=1191573867
+channel ch1: starting piece 1 at 28-JAN-25
+channel ch1: finished piece 1 at 28-JAN-25
+piece handle=/home/oracle/rman_backup/TESTDB_3_033gbubb_1_1.bkp tag=TAG20250128T084427 comment=NONE
+channel ch1: backup set complete, elapsed time: 00:00:01
+Finished backup at 28-JAN-25
+
+Starting Control File and SPFILE Autobackup at 28-JAN-25
+piece handle=/u01/app/oracle/product/19.0.0/dbhome_1/dbs/c-2974669564-20250128-00 comment=NONE
+Finished Control File and SPFILE Autobackup at 28-JAN-25
+
+released channel: ch1
+
+RMAN> 
+
+Recovery Manager complete.
