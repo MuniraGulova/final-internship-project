@@ -49,14 +49,14 @@
 
     - name: Pull Docker image from Docker Hub
       docker_image:
-        name: "gmunira/web_app_image:latest"
+        name: "gmunira/new_web_app_image:latest"
         source: pull
       become: true
 
     - name: Run Docker container from pulled image
       docker_container:
         name: my_application_container
-        image: gmunira/web_app_image:latest
+        image: gmunira/new_web_app_image:latest
         state: started
         restart_policy: always
         ports:
