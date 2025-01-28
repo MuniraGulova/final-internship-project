@@ -3,11 +3,12 @@
 
 ### 2. Создайте пользователей с различными уровнями привилегий (администратор базы данных, пользователь, ограниченный пользователь (только чтение данных)). Каждому пользователю назначьте отдельное табличное пространство.
 ##### Commnads
-`create tablespace admin_tblspace datafile 'admin_tblspace.dbf' size 100M;` -- Создание табличного пространства для пользователя admin `create tablespace user_tblspace datafile 'user_tblspace.dbf' size 100M; ` -- Создание табличного пространства для пользователя simpl_user 
+`create tablespace admin_tblspace datafile 'admin_tblspace.dbf' size 100M;` -- Создание табличного пространства для пользователя admin 
+`create tablespace user_tblspace datafile 'user_tblspace.dbf' size 100M; ` -- Создание табличного пространства для пользователя simpl_user 
 `create tablespace reader_tblspace datafile 'reader_tblspace' size 100M;` -- Создание табличного пространства для пользователя reader_user 
 `create user admin identified by 2024 default tablespace admin_tblspace;` -- Создание пользователя admin с указанием пароля и табличного пространства 
 `grant dba to admin;` -- Предоставление прав администратора пользователю 
-`admin create user simpl_user identified by 2024 default tablespace user_tblspace; `-- Создание пользователя simpl_user с паролем и табличным пространством
+`admin create user simpl_user identified by 2024 default tablespace user_tblspace;`-- Создание пользователя simpl_user с паролем и табличным пространством
 `grant create session to simpl_user`; -- Разрешение пользователю simpl_user создавать сессии 
 `grant create table to simpl_user;` -- Разрешение пользователю simpl_user создавать таблицы
 `grant create view to simpl_user;` -- Разрешение пользователю simpl_user создавать представления 
@@ -152,7 +153,7 @@ VALUES (2, 'simpl_user_ivan', 'simpl_user_ivan@example.com');
 
 ```
 
-### 4. Создайте скрипт для для экспорта одной любой схемы с помощью инструмента data pump. Опишите также процесс импорта этой схемы.
+### 4. Создайте скрипт для экспорта одной любой схемы с помощью инструмента data pump. Опишите также процесс импорта этой схемы.
 #### Process
 ###### Экспорт схемы:
 
